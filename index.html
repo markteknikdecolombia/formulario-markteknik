@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro y Actualización de Datos - MARKTEKNIK DE COLOMBIA SAS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8cc63f 0%, #6fb32e 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8cc63f 0%, #6fb32e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header img {
+            max-width: 250px;
+            margin-bottom: 15px;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .company-info {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .company-info h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .company-info p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .info-message {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            margin: 20px 30px;
+            border-radius: 4px;
+        }
+
+        .info-message p {
+            font-size: 14px;
+            color: #1565c0;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .form-container {
+            padding: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h3 {
+            font-size: 18px;
+            color: #6fb32e;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #8cc63f;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .required {
+            color: #e74c3c;
+            margin-left: 3px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8cc63f;
+            box-shadow: 0 0 0 3px rgba(140, 198, 63, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            padding: 8px;
+        }
+
+        .file-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 3px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: normal;
+            font-size: 13px;
+            line-height: 1.6;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #8cc63f 0%, #6fb32e 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(140, 198, 63, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+
+            .info-message {
+                margin: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://i.imgur.com/uHwDBaD.jpeg" alt="MARKTEKNIK Logo">
+            <h1>📋 Registro y Actualización de Datos de Proveedores y Clientes</h1>
+            <p>MARKTEKNIK DE COLOMBIA SAS</p>
+        </div>
+
+        <div class="company-info">
+            <h2>Información de MARKTEKNIK DE COLOMBIA SAS</h2>
+            <p><strong>NIT:</strong> 800235583-3</p>
+            <p><strong>Dirección:</strong> Calle 49a #74a-16</p>
+            <p><strong>Teléfono:</strong> 3007414751</p>
+            <p><strong>Ciudad:</strong> Bogotá D.C</p>
+        </div>
+
+        <div class="info-message">
+            <p>
+                La actualización de sus datos es muy importante para nosotros, ya que nos permite mantener una comunicación efectiva, brindarle un mejor servicio y asegurar que la información registrada sea correcta y actualizada. Sus datos serán utilizados únicamente para fines administrativos y de contacto.
+            </p>
+        </div>
+
+        <div class="form-container">
+            <div class="success-message" id="successMessage">
+                ✅ Formulario enviado exitosamente. Gracias por actualizar sus datos.
+            </div>
+
+            <form id="proveedorForm" action="https://formsubmit.co/adtivomarkteknik@outlook.com" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_subject" value="Nuevo registro de proveedor/cliente - MARKTEKNIK">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="text" name="_honey" style="display:none">
+                <input type="hidden" name="_template" value="table">
+
+                <div class="form-section">
+                    <h3>📊 Información General</h3>
+                    
+                    <div class="form-group">
+                        <label>Nombre de la Empresa <span class="required">*</span></label>
+                        <input type="text" name="nombreEmpresa" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>NIT <span class="required">*</span></label>
+                            <input type="text" name="nit" required placeholder="123456789-0">
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha <span class="required">*</span></label>
+                            <input type="date" name="fecha" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tipo de Persona <span class="required">*</span></label>
+                            <select name="tipoPersona" required>
+                                <option value="">Seleccione...</option>
+                                <option value="natural">Persona Natural</option>
+                                <option value="juridica">Persona Jurídica</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de relación con la empresa <span class="required">*</span></label>
+                            <select name="tipoRelacion" required>
+                                <option value="">Seleccione...</option>
+                                <option value="cliente">Cliente</option>
+                                <option value="proveedor">Proveedor</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>RUT (Registro Único Tributario) <span class="required">*</span></label>
+                        <div class="file-input-wrapper">
+                            <input type="file" name="rut" accept=".pdf,.jpg,.jpeg,.png" required>
+                            <p class="file-hint">Formatos permitidos: PDF, JPG, PNG (Máx. 5MB)</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Certificado de Cámara de Comercio <span class="required">*</span></label>
+                        <div class="file-input-wrapper">
+                            <input type="file" name="camaraComercio" accept=".pdf,.jpg,.jpeg,.png" required>
+                            <p class="file-hint">Formatos permitidos: PDF, JPG, PNG (Máx. 5MB)</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Dirección <span class="required">*</span></label>
+                        <input type="text" name="direccion" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ciudad <span class="required">*</span></label>
+                            <input type="text" name="ciudad" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono <span class="required">*</span></label>
+                            <input type="tel" name="telefono" required placeholder="3001234567">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>📧 Información de Contacto</h3>
+
+                    <div class="form-group">
+                        <label>Email para Información Comercial <span class="required">*</span></label>
+                        <input type="email" name="emailComercial" required placeholder="comercial@ejemplo.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Teléfono para Información Comercial <span class="required">*</span></label>
+                        <input type="tel" name="numeroComercial" required placeholder="3001234567">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email para Solicitud de Certificados Tributarios <span class="required">*</span></label>
+                        <input type="email" name="emailCertificados" required placeholder="certificados@ejemplo.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Teléfono para Solicitud de Certificados Tributarios <span class="required">*</span></label>
+                        <input type="tel" name="numeroCertificados" required placeholder="3001234567">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email para Contabilidad <span class="required">*</span></label>
+                        <input type="email" name="emailContabilidad" required placeholder="contabilidad@ejemplo.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Teléfono para Contabilidad <span class="required">*</span></label>
+                        <input type="tel" name="numeroContabilidad" required placeholder="3001234567">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email para Facturación <span class="required">*</span></label>
+                        <input type="email" name="emailFacturacion" required placeholder="facturacion@ejemplo.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Teléfono para Facturación <span class="required">*</span></label>
+                        <input type="tel" name="numeroFacturacion" required placeholder="3001234567">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>✅ Autorización de Manejo de Datos</h3>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="autorizacion" name="autorizacion" required>
+                            <label for="autorizacion">
+                                Autorizo a <strong>MARKTEKNIK DE COLOMBIA S.A.S.</strong> para el tratamiento de los datos personales aquí suministrados, los cuales podrán ser recolectados, almacenados, usados, procesados y actualizados, de conformidad con lo dispuesto en la Ley 1581 de 2012 y con la Política de Tratamiento de Datos Personales implementada por MARKTEKNIK DE COLOMBIA S.A.S., en el marco de la relación con proveedores y Clientes. <span class="required">*</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">Enviar Formulario</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 20px; color: #666; font-size: 12px;">
+                Los datos enviados serán recibidos por MARKTEKNIK DE COLOMBIA SAS y tratados de forma confidencial.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('proveedorForm');
+        const successMessage = document.getElementById('successMessage');
+        const submitBtn = document.getElementById('submitBtn');
+        const autorizacionCheckbox = document.getElementById('autorizacion');
+
+        autorizacionCheckbox.addEventListener('change', function() {
+            submitBtn.disabled = !this.checked;
+        });
+
+        submitBtn.disabled = true;
+
+        form.addEventListener('submit', function(e) {
+            if (!autorizacionCheckbox.checked) {
+                e.preventDefault();
+                alert('Debe aceptar la autorización de manejo de datos para continuar.');
+                return;
+            }
+
+            const requiredFields = form.querySelectorAll('[required]');
+            let allFilled = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value && field.type !== 'checkbox') {
+                    allFilled = false;
+                }
+            });
+
+            if (!allFilled) {
+                e.preventDefault();
+                alert('Por favor complete todos los campos obligatorios.');
+                return;
+            }
+
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.disabled = true;
+        });
+    </script>
+</body>
+</html>
